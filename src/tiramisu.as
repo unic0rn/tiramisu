@@ -366,7 +366,7 @@ internal function connected(e:Event):void {
     if ((sconf.data.password != '') && (config.server.@services == 'true')) {
         swrite('PASS '+sconf.data.password);
     } else if (config.server.@gateway == 'true') {
-        swrite('PASS mehasadragon');
+        swrite('PASS gatewaypassword');
     }
     mynick = sconf.data.nickname;
     swrite('NICK '+mynick);
