@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" toggle="true" tabEnabled="false" tabFocusEnabled="false" mouseFocusEnabled="false" textAlign="left" maintainProjectionCenter="true" addedEffect="{show3d}" removedEffect="{hide3d}" moveEffect="{moveblur}" updateComplete="centerfix()" alpha="0">
+	<mx:Parallel id="show3d">
+		<mx:AnimateProperty duration="250" property="z" fromValue="-75" toValue="0"/>
+		<mx:AnimateProperty duration="250" property="rotationX" fromValue="-15" toValue="0"/>
+		<mx:Fade duration="250" alphaFrom="0" alphaTo="1"/>
+	</mx:Parallel>
+	<mx:Parallel id="hide3d">
+		<mx:SetPropertyAction name="includeInLayout" value="false"/>
+		<mx:AnimateProperty duration="250" property="z" fromValue="0" toValue="75"/>
+		<mx:AnimateProperty duration="250" property="rotationX" fromValue="0" toValue="15"/>
+		<mx:Fade duration="250" alphaFrom="1" alphaTo="0"/>
+	</mx:Parallel>
+	<mx:Parallel id="moveblur">
+		<mx:Move duration="250"/>
+		<mx:Sequence>
+			<mx:Blur duration="125" blurXFrom="0" blurXTo="4" blurYFrom="0" blurYTo="4"/>
+			<mx:Blur duration="125" blurXFrom="4" blurXTo="0" blurYFrom="4" blurYTo="0"/>
+		</mx:Sequence>
+	</mx:Parallel>
+    <mx:Script>
+        <![CDATA[          
+	        import mx.core.BitmapAsset;
+	        import mx.core.FlexSprite;
+	        import flash.events.Event;
+	        import flash.geom.Point;
+	        
+	        [Embed(source='closebtn.png')]
+			internal var closebtn:Class;
+	        [Embed(source='update.png')]
+			internal var updatebtn:Class;
+			internal var closebtnba:BitmapAsset;
+			internal var closebtnimg:FlexSprite;
+			internal var btncallback:Function;
+
+			internal function centerfix():void {
+				transform.perspectiveProjection.projectionCenter = new Point(x+unscaledWidth/2,y+unscaledHeight/2);
+			}
+			
+			internal function closebtntofront(e:Event):void {
+				setChildIndex(closebtnimg,numChildren-1);
+				closebtnimg.x = width-18;
+				closebtnimg.y = (height-14)/2;
+			}
+			internal function closebtnlistener(e:Event):void {
+				var htp:Point = localToGlobal(new Point(mouseX,mouseY));
+				if (closebtnimg.hitTestPoint(htp.x,htp.y) && !moveblur.isPlaying) {
+					btncallback(label,this);
+				}
+			}
+			public function closebtninit(f:Function):void {
+				btncallback = f;
+				closebtnba = new closebtn();
+				closebtnimg = new FlexSprite();
+				closebtnimg.addChild(closebtnba);
+				addChildAt(closebtnimg,numChildren);
+				closebtnimg.x = width-18;
+				closebtnimg.y = (height-14)/2;
+				addEventListener('updateComplete',closebtntofront);
+				addEventListener('mouseDown',closebtnlistener);
+			}
+			public function updatebtninit(f:Function):void {
+				btncallback = f;
+				closebtnba = new updatebtn();
+				closebtnimg = new FlexSprite();
+				closebtnimg.addChild(closebtnba);
+				addChildAt(closebtnimg,numChildren);
+				closebtnimg.x = width-18;
+				closebtnimg.y = (height-14)/2;
+				addEventListener('updateComplete',closebtntofront);
+				addEventListener('mouseDown',closebtnlistener);
+			}
+        ]]>
+    </mx:Script>
+</mx:Button>

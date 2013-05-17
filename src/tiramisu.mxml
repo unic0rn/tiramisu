@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:irc="irc.*" xmlns:mx="http://www.adobe.com/2006/mxml" usePreloader="true" frameRate="30" paddingLeft="0" paddingRight="0" paddingTop="0" paddingBottom="0" verticalAlign="middle" applicationComplete="appinit()" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+    <mx:Fade id="fadein" duration="750" alphaFrom="0.72" alphaTo="1"/>
+    <mx:Fade id="fadeout" duration="250" alphaFrom="1" alphaTo="0.72"/>
+    <mx:Parallel id="moveblur">
+        <mx:Move duration="250"/>
+        <mx:Sequence>
+            <mx:Blur duration="125" blurXFrom="0" blurXTo="4" blurYFrom="0" blurYTo="4"/>
+            <mx:Blur duration="125" blurXFrom="4" blurXTo="0" blurYFrom="4" blurYTo="0"/>
+        </mx:Sequence>
+    </mx:Parallel>
+    <mx:states>
+        <mx:State name="channel">
+            <mx:SetProperty target="{chat}" name="visible" value="true"/>
+            <mx:SetProperty target="{chat}" name="includeInLayout" value="true"/>
+            <mx:SetProperty target="{sidebar}" name="visible" value="true"/>
+            <mx:SetProperty target="{sidebar}" name="includeInLayout" value="true"/>
+            <mx:SetProperty target="{cl}" name="visible" value="false"/>
+            <mx:SetProperty target="{cl}" name="includeInLayout" value="false"/>
+        </mx:State>
+        <mx:State name="query">
+            <mx:SetProperty target="{chat}" name="visible" value="true"/>
+            <mx:SetProperty target="{chat}" name="includeInLayout" value="true"/>
+            <mx:SetProperty target="{sidebar}" name="visible" value="false"/>
+            <mx:SetProperty target="{sidebar}" name="includeInLayout" value="false"/>
+            <mx:SetProperty target="{cl}" name="visible" value="false"/>
+            <mx:SetProperty target="{cl}" name="includeInLayout" value="false"/>
+        </mx:State>
+        <mx:State name="list">
+            <mx:SetProperty target="{chat}" name="visible" value="false"/>
+            <mx:SetProperty target="{chat}" name="includeInLayout" value="false"/>
+            <mx:SetProperty target="{sidebar}" name="visible" value="false"/>
+            <mx:SetProperty target="{sidebar}" name="includeInLayout" value="false"/>
+            <mx:SetProperty target="{cl}" name="visible" value="true"/>
+            <mx:SetProperty target="{cl}" name="includeInLayout" value="true"/>
+        </mx:State>
+    </mx:states>
+    <mx:transitions>
+        <mx:Transition fromState="*" toState="channel">
+            <mx:Sequence>
+                <mx:Pause duration="50"/>
+                <mx:SetPropertyAction target="{sidebar}" name="visible"/>
+                <mx:SetPropertyAction target="{sidebar}" name="includeInLayout"/>
+                <mx:Parallel>
+                    <mx:AnimateProperty target="{sidebar}" duration="750" property="z" fromValue="-75" toValue="0"/>
+                    <mx:AnimateProperty target="{sidebar}" duration="750" property="rotationY" fromValue="15" toValue="0"/>
+                    <mx:Fade target="{sidebar}" duration="750" alphaFrom="0" alphaTo="1"/>
+                </mx:Parallel>
+            </mx:Sequence>
+        </mx:Transition>
+        <mx:Transition fromState="channel" toState="*">
+            <mx:Sequence>
+                <mx:Pause duration="50"/>
+                <mx:Parallel>
+                    <mx:AnimateProperty target="{sidebar}" duration="250" property="z" fromValue="0" toValue="-75"/>
+                    <mx:AnimateProperty target="{sidebar}" duration="250" property="rotationY" fromValue="0" toValue="15"/>
+                    <mx:Fade target="{sidebar}" duration="250" alphaFrom="1" alphaTo="0"/>
+                </mx:Parallel>
+                <mx:SetPropertyAction target="{sidebar}" name="visible"/>
+                <mx:SetPropertyAction target="{sidebar}" name="includeInLayout"/>
+            </mx:Sequence>
+        </mx:Transition>
+    </mx:transitions>
+    <mx:Panel id="panel" width="100%" height="100%" horizontalAlign="right" updateComplete="btnbarvalidate()" resize="titleupdate()">
+        <mx:HBox width="100%" height="100%">
+            <mx:VBox id="btnbar" height="100%">
+                <mx:VBox id="sbar" clipContent="false" moveEffect="{moveblur}"/>
+                <mx:VBox id="cbar" clipContent="false" moveEffect="{moveblur}"/>
+                <mx:VBox id="qbar" clipContent="false" moveEffect="{moveblur}"/>
+            </mx:VBox>
+            <mx:VBox id="chat" width="100%" height="100%">
+                <mx:TextInput id="topic" width="100%" alpha="0.72" focusInEffect="{fadein}" focusOutEffect="{fadeout}" enter="newtopic()" tabEnabled="false" tabFocusEnabled="false"/>
+                <irc:ChatArea id="ca" width="100%" height="100%"/>
+                <mx:TextInput id="cmdline" width="100%" alpha="0.72" focusInEffect="{fadein}" focusOutEffect="{fadeout}" enter="newline()"/>
+            </mx:VBox>
+			<irc:Chanlist id="cl" width="100%" height="100%" visible="false" includeInLayout="false" maintainProjectionCenter="true"/>
+            <mx:VBox id="sidebar" height="100%" visible="false" includeInLayout="false" maintainProjectionCenter="true" updateComplete="centerfix(sidebar)" alpha="0">
+                <mx:TextInput id="ulcount" width="154" alpha="0.72" tabEnabled="false" tabFocusEnabled="false" editable="false" textAlign="center"/>
+                <irc:Userlist id="ul" width="154" height="100%" tabEnabled="false" tabFocusEnabled="false" itemDoubleClick="userdclick()"/>
+            </mx:VBox>
+        </mx:HBox>
+    </mx:Panel>
+    <mx:Script source="tiramisu.as"/>
+</mx:Application>

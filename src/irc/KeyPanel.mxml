@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" horizontalAlign="center" maintainProjectionCenter="true" addedEffect="{show3d}" removedEffect="{hide3d}" updateComplete="centerfix()" alpha="0">
+	<mx:Fade id="fadein" duration="750" alphaFrom="0.72" alphaTo="1"/>
+	<mx:Fade id="fadeout" duration="250" alphaFrom="1" alphaTo="0.72"/>
+	<mx:Parallel id="show3d">
+		<mx:AnimateProperty duration="750" property="z" fromValue="-75" toValue="0"/>
+		<mx:AnimateProperty duration="750" property="rotationX" fromValue="-15" toValue="0"/>
+		<mx:Fade duration="750" alphaFrom="0" alphaTo="1"/>
+	</mx:Parallel>
+	<mx:Parallel id="hide3d">
+		<mx:AnimateProperty duration="250" property="z" fromValue="0" toValue="75"/>
+		<mx:AnimateProperty duration="250" property="rotationX" fromValue="0" toValue="15"/>
+		<mx:Fade duration="250" alphaFrom="1" alphaTo="0"/>
+	</mx:Parallel>
+	<mx:VBox horizontalAlign="right">
+		<mx:HBox>
+			<mx:Label text="Key:"/>
+			<mx:TextInput id="key" alpha="0.72" focusInEffect="fadein" focusOutEffect="fadeout" change="btnvalidate()" enter="nenter()"/>
+		</mx:HBox>
+	</mx:VBox>
+	<mx:HBox width="100%" horizontalAlign="center">
+		<mx:Button width="{btn2.width}" id="btn" label="OK" click="connect()" enabled="false"/>
+		<mx:Button id="btn2" label="Cancel" click="nokey()"/>
+	</mx:HBox>
+	<mx:Script>
+		<![CDATA[
+			import mx.managers.PopUpManager;
+			import flash.geom.Point;
+
+			internal var handler:Function;
+			internal var handler2:Function;
+			internal var chan:String;
+
+			internal function centerfix():void {
+				transform.perspectiveProjection.projectionCenter = new Point(x+unscaledWidth/2,y+unscaledHeight/2);
+			}
+
+			internal function btnvalidate():void {
+				if (key.text != '') {
+					btn.enabled = true;
+				} else {
+					btn.enabled = false;
+				}
+			}
+
+			internal function nenter():void {
+				if (btn.enabled) {
+					connect();
+				}
+			}
+
+			internal function connect():void {
+				PopUpManager.removePopUp(this);
+				handler(chan,key.text);
+			}
+
+			internal function nokey():void {
+				PopUpManager.removePopUp(this);
+				handler2(chan);
+			}
+
+			public static function show(t:String,c:String,o:DisplayObject,f:Function,f2:Function):void {
+				var q:KeyPanel = new KeyPanel();
+				PopUpManager.addPopUp(q,o,true);
+				q.title = t;
+				q.chan = c;
+				q.handler = f;
+				q.handler2 = f2;
+				q.btnvalidate();
+				PopUpManager.centerPopUp(q);
+				q.key.setFocus();
+			}
+		]]>
+	</mx:Script>
+</mx:Panel>
+

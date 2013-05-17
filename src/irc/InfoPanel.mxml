@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" horizontalAlign="center" maintainProjectionCenter="true" addedEffect="{show3d}" removedEffect="{hide3d}" updateComplete="centerfix()" alpha="0">
+	<mx:Parallel id="show3d">
+		<mx:AnimateProperty duration="750" property="z" fromValue="-75" toValue="0"/>
+		<mx:AnimateProperty duration="750" property="rotationX" fromValue="-15" toValue="0"/>
+		<mx:Fade duration="750" alphaFrom="0" alphaTo="1"/>
+	</mx:Parallel>
+	<mx:Parallel id="hide3d">
+		<mx:AnimateProperty duration="250" property="z" fromValue="0" toValue="75"/>
+		<mx:AnimateProperty duration="250" property="rotationX" fromValue="0" toValue="15"/>
+		<mx:Fade duration="250" alphaFrom="1" alphaTo="0"/>
+	</mx:Parallel>
+	<mx:Label id="infoline"/>
+	<mx:Button id="btn" click="doclick()"/>
+	<mx:Script>
+		<![CDATA[
+			import mx.managers.PopUpManager;
+			import flash.geom.Point;
+
+			internal var handler:Function;
+
+			internal function centerfix():void {
+				transform.perspectiveProjection.projectionCenter = new Point(x+unscaledWidth/2,y+unscaledHeight/2);
+			}
+
+			internal function doclick():void {
+				PopUpManager.removePopUp(this);
+				if (handler != null) {
+					handler();
+				}
+			}
+
+			public static function show(t:String,t2:String,o:DisplayObject,l:String = 'OK',f:Function = null):void {
+				var q:InfoPanel = new InfoPanel();
+				PopUpManager.addPopUp(q,o,true);
+				q.handler = f;
+				q.btn.label = l;
+				q.title = t;
+				q.infoline.htmlText = t2;
+				PopUpManager.centerPopUp(q);
+			}
+		]]>
+	</mx:Script>
+</mx:Panel>

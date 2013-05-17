@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" horizontalAlign="center" maintainProjectionCenter="true" addedEffect="{show3d}" removedEffect="{hide3d}" updateComplete="centerfix()" alpha="0">
+    <mx:Fade id="fadein" duration="750" alphaFrom="0.72" alphaTo="1"/>
+    <mx:Fade id="fadeout" duration="250" alphaFrom="1" alphaTo="0.72"/>
+    <mx:Sequence id="show3d">
+        <mx:Pause duration="50"/>
+        <mx:Parallel>
+            <mx:AnimateProperty duration="750" property="z" fromValue="-75" toValue="0"/>
+            <mx:AnimateProperty duration="750" property="rotationX" fromValue="-15" toValue="0"/>
+            <mx:Fade duration="750" alphaFrom="0" alphaTo="1"/>
+        </mx:Parallel>
+    </mx:Sequence>
+    <mx:Parallel id="hide3d">
+        <mx:AnimateProperty duration="250" property="z" fromValue="0" toValue="75"/>
+        <mx:AnimateProperty duration="250" property="rotationX" fromValue="0" toValue="15"/>
+        <mx:Fade duration="250" alphaFrom="1" alphaTo="0"/>
+    </mx:Parallel>
+    <mx:VBox horizontalAlign="right">
+        <mx:HBox>
+            <mx:Label text="Nickname:"/>
+            <mx:TextInput id="nick" alpha="0.72" focusInEffect="fadein" focusOutEffect="fadeout" change="btnvalidate()" enter="nenter()"/>
+        </mx:HBox>
+        <mx:HBox id="rnb" visible="false" includeInLayout="false">
+            <mx:Label text="Realname:"/>
+            <mx:TextInput id="rn" alpha="0.72" focusInEffect="fadein" focusOutEffect="fadeout" change="btnvalidate()" enter="renter()"/>
+        </mx:HBox>
+        <mx:HBox id="svb" visible="false" includeInLayout="false">
+            <mx:Label text="Server:"/>
+            <mx:TextInput id="sv" alpha="0.72" focusInEffect="fadein" focusOutEffect="fadeout" change="btnvalidate()" enter="senter()"/>
+        </mx:HBox>
+        <mx:HBox id="passb" visible="false" includeInLayout="false">
+            <mx:Label text="Password:"/>
+            <mx:TextInput id="pass" displayAsPassword="true" alpha="0.72" focusInEffect="fadein" focusOutEffect="fadeout" enter="penter()"/>
+        </mx:HBox>
+    </mx:VBox>
+    <mx:Button id="btn" label="Connect" click="connect()" enabled="false"/>
+    <mx:Script>
+        <![CDATA[
+            import mx.managers.PopUpManager;
+            import flash.net.SharedObject;
+            import flash.geom.Point;
+
+            public static var userdata:SharedObject = SharedObject.getLocal('tiramisu');
+            internal var conf:XML;
+            internal var handler:Function;
+
+            internal function centerfix():void {
+                transform.perspectiveProjection.projectionCenter = new Point(x+unscaledWidth/2,y+unscaledHeight/2);
+            }
+
+            internal function btnvalidate():void {
+                if ((nick.text != '') && (rn.text != '')) {
+                    if (Security.sandboxType == Security.LOCAL_TRUSTED) {
+                        if (sv.text != '') {
+                            btn.enabled = true;
+                        } else {
+                            btn.enabled = false;
+                        }
+                    } else {
+                        btn.enabled = true;
+                    }
+                } else {
+                    btn.enabled = false;
+                }
+            }
+
+            internal function nenter():void {
+                focusManager.setFocus(rn);
+            }
+
+            internal function renter():void {
+                if (Security.sandboxType == Security.LOCAL_TRUSTED) {
+                    focusManager.setFocus(sv);
+                } else if (conf.server.@services == 'true') {
+                    focusManager.setFocus(pass);
+                } else {
+                    if (btn.enabled) {
+                        connect();
+                    } else {
+                        focusManager.setFocus(nick);
+                    }
+                }
+            }
+
+            internal function senter():void {
+                if (conf.server.@services == 'true') {
+                    focusManager.setFocus(pass);
+                } else {
+                    if (btn.enabled) {
+                        connect();
+                    } else {
+                        focusManager.setFocus(nick);
+                    }
+                }
+            }
+
+            internal function penter():void {
+                if (btn.enabled) {
+                    connect();
+                } else {
+                    focusManager.setFocus(nick);
+                }
+            }
+
+            internal function connect():void {
+                userdata.data.nickname = nick.text;
+                userdata.data.realname = rn.text;
+                userdata.data.server = sv.text;
+                userdata.data.password = pass.text;
+                userdata.flush();
+                PopUpManager.removePopUp(this);
+                handler();
+            }
+
+            public static function show(c:XML,o:DisplayObject,f:Function):void {
+                var q:LoginPanel = new LoginPanel();
+                var passfocus:Boolean = false;
+                PopUpManager.addPopUp(q,o,true);
+                q.title = 'Login';
+                q.conf = c;
+                q.handler = f;
+                if (Security.sandboxType == Security.LOCAL_TRUSTED) {
+                    q.svb.visible = true;
+                    q.svb.includeInLayout = true;
+                }
+                if (q.conf.server.@services == 'true') {
+                    q.passb.visible = true;
+                    q.passb.includeInLayout = true;
+                    if (userdata.data.nickname != null) {
+                        passfocus = true;
+                    }
+                }
+                if ((q.conf.server.@gateway == 'false') && (q.conf.server.@realname == 'true')) {
+                    q.rnb.visible = true;
+                    q.rnb.includeInLayout = true;
+                }
+                if (userdata.data.nickname != null) {
+                    q.nick.text = userdata.data.nickname;
+                }
+                if (userdata.data.realname != null) {
+                    q.rn.text = userdata.data.realname;
+                }
+                if (userdata.data.server != null) {
+                    q.sv.text = userdata.data.server;
+                }
+                if (userdata.data.password != null) {
+                    q.pass.text = userdata.data.password;
+                }
+                if (q.rn.text == '') {
+                    q.rn.text = 'tiramisu user';
+                }
+                q.btnvalidate();
+                PopUpManager.centerPopUp(q);
+                if (!passfocus) {
+                    q.nick.setFocus();
+                } else {
+                    q.pass.setFocus();
+                }
+            }
+        ]]>
+    </mx:Script>
+</mx:Panel>
+

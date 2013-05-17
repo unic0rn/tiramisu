@@ -1,0 +1,120 @@
+@namespace mx "http://www.adobe.com/2006/mxml";
+@namespace "*";
+
+tiramisu {
+	dbgin: #80D0FF;
+	dbgout: #FF8080;
+	notice: #D0D0D0;
+	info: #00CCCC;
+	info2: #00FF99;
+	warn: #FF8080;
+	hl: #FFFF80;
+	nick: #80D0FF;
+	nickchg: #D0D0FF;
+	mode: #80FF80;
+	own: #E0E0FF;
+	glow: #00CCFF;
+	glow2: #006699;
+	time: #A0A0A0;
+	mirc00: #FFFFFF;
+	mirc01: #000000;
+	mirc02: #0000FF;
+	mirc03: #00FF00;
+	mirc04: #FF0000;
+	mirc05: #844200;
+	mirc06: #8400FF;
+	mirc07: #FF8400;
+	mirc08: #FFFF00;
+	mirc09: #84FF00;
+	mirc10: #00FF84;
+	mirc11: #00FFFF;
+	mirc12: #0084FF;
+	mirc13: #FF00FF;
+	mirc14: #848484;
+	mirc15: #C6C6C6;
+}
+
+mx|Application {
+	color: #FFFFFF;
+	chromeColor: #222222;
+	backgroundColor: #222222;
+	contentBackgroundColor: #222222;
+	symbolColor: #FFFFFF;
+	fontFamily: 'Verdana';
+	fontSize: 11;
+	fontWeight: 'bold';
+}
+
+mx|Panel {
+	backgroundColor: #444444;
+	backgroundAlpha: 1;
+	paddingTop: 8;
+	paddingBottom: 8;
+	paddingLeft: 8;
+	paddingRight: 8;
+	modalTransparency: 0.17;
+	modalTransparencyColor: #FFFFFF;
+	modalTransparencyBlur: 0;
+	modalTransparencyDuration: 0;
+}
+
+mx|Label {
+	color: #FFFFFF;
+	fontSize: 12;
+	fontWeight: 'normal';
+}
+
+mx|TextInput {
+	contentBackgroundColor: #FFFFFF;
+	contentBackgroundAlpha: 1;
+	borderThickness: 0;
+	focusThickness: 0;
+	focusAlpha: 0;
+}
+
+mx|Box {
+	color: #000000;
+	fontSize: 12;
+	fontWeight: 'normal';
+}
+
+mx|List {
+	color: #FFFFFF;
+	rollOverColor: #AAAAAA;
+	selectionColor: #DDDDDD;
+	contentBackgroundAlpha: 1;
+	borderThickness: 0;
+	focusThickness: 0;
+	focusAlpha: 0;
+}
+
+mx|DataGrid {
+	color: #FFFFFF;
+	rollOverColor: #AAAAAA;
+	selectionColor: #DDDDDD;
+	headerColors: #111111,#000000;
+	verticalGridLineColor: #000000;
+	alternatingItemColors: #222222,#111111;
+	contentBackgroundAlpha: 1;
+	borderThickness: 0;
+	focusThickness: 0;
+	focusAlpha: 0;
+}
+
+mx|TextArea {
+	color: #FFFFFF;
+	contentBackgroundAlpha: 1;
+	borderThickness: 0;
+	focusThickness: 0;
+	focusAlpha: 0;
+}
+
+mx|Button {
+	color: #DDDDDD;
+	textRollOverColor: #FFFFFF;
+	textSelectedColor: #FFFFFF;
+	fontSize: 11;
+	fontWeight: 'bold';
+	focusThickness: 0;
+	focusAlpha: 0;
+}
