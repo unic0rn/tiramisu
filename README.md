@@ -15,4 +15,4 @@ Shortly? There is none. I have no time currently to work on this project, mainly
 
 #### IRC ####
 
-#tiramisu@irc.arloria.net - or just click [here] (<http://aurora.irc.arloria.net/~unic0rn/tiramisu/>)
+just click [here] (<http://aurora.irc.arloria.net/~unic0rn/tiramisu/>)
