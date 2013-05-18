@@ -68,7 +68,6 @@ internal var tabmouse:Number = 0;
 internal var reconnwait:Boolean = false;
 internal var nicklen:int = 9;
 internal var lastadd:int = 0;
-internal var menuarray:Array = ['services','options','get tiramisu','about'];
 internal var stylemanager:IStyleManager2;
 
 internal function menuclick(e:ItemClickEvent):void {
