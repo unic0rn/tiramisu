@@ -1,61 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:List xmlns:mx="http://www.adobe.com/2006/mxml" editable="false" doubleClickEnabled="true" tabEnabled="false" mouseFocusEnabled="false" iconFunction="hasicon" labelFunction="slicer">
-	<mx:Script>
-		<![CDATA[
-			[Embed(source='bulb0.png')]
-			internal var bulb0:Class;
-			[Embed(source='bulb1.png')]
-			internal var bulb1:Class;
-			[Embed(source='bulb2.png')]
-			internal var bulb2:Class;
-			[Embed(source='bulb3.png')]
-			internal var bulb3:Class;
-			[Embed(source='bulb4.png')]
-			internal var bulb4:Class;
-			[Embed(source='empty.png')]
-			internal var empty:Class;
-			public var npf:String = '';
-			public var balls:Boolean = true;
+    <mx:Script>
+        <![CDATA[
+            [Embed(source='bulb0.png')]
+            internal var bulb0:Class;
+            [Embed(source='bulb1.png')]
+            internal var bulb1:Class;
+            [Embed(source='bulb2.png')]
+            internal var bulb2:Class;
+            [Embed(source='bulb3.png')]
+            internal var bulb3:Class;
+            [Embed(source='bulb4.png')]
+            internal var bulb4:Class;
+            [Embed(source='empty.png')]
+            internal var empty:Class;
+            public var npf:String = '';
+            public var balls:Boolean = true;
 
-			internal function hasicon(o:Object):Class {
-				if (!balls) {
-					return null;
-				}
-				var u:String = o.toString();
-				for (var i:int = 0; i < npf.length; i++) {
-					if (u.indexOf(npf.charAt(i)) != -1) {
-						if (npf.charAt(i) == '~') {
-							return bulb0;
-						}
-						if (npf.charAt(i) == '&') {
-							return bulb1;
-						}
-						if (npf.charAt(i) == '@') {
-							return bulb2;
-						}
-						if (npf.charAt(i) == '%') {
-							return bulb3;
-						}
-						if (npf.charAt(i) == '+') {
-							return bulb4;
-						}
-					}
-				}
-				return empty;
-			}
-			internal function slicer(o:Object):String {
-				var u:String = o.toString();
-				if (!balls) {
-					return u;
-				}
-				for (var i:int = 0; i < npf.length; i++) {
-					if (u.indexOf(npf.charAt(i)) != -1) {
-						return u.slice(1);
-					}
-				}
-				return u;
-			}
-		]]>
-	</mx:Script>
+            internal function hasicon(o:Object):Class {
+                if (!balls) {
+                    return null;
+                }
+                var u:String = o.toString();
+                for (var i:int = 0; i < npf.length; i++) {
+                    if (u.indexOf(npf.charAt(i)) != -1) {
+                        if (npf.charAt(i) == '~') {
+                            return bulb0;
+                        }
+                        if (npf.charAt(i) == '&') {
+                            return bulb1;
+                        }
+                        if (npf.charAt(i) == '@') {
+                            return bulb2;
+                        }
+                        if (npf.charAt(i) == '%') {
+                            return bulb3;
+                        }
+                        if (npf.charAt(i) == '+') {
+                            return bulb4;
+                        }
+                    }
+                }
+                return empty;
+            }
+            internal function slicer(o:Object):String {
+                var u:String = o.toString();
+                if (!balls) {
+                    return u;
+                }
+                for (var i:int = 0; i < npf.length; i++) {
+                    if (u.indexOf(npf.charAt(i)) != -1) {
+                        return u.slice(1);
+                    }
+                }
+                return u;
+            }
+        ]]>
+    </mx:Script>
 </mx:List>
 

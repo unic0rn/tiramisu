@@ -1,69 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" horizontalAlign="center" maintainProjectionCenter="true" addedEffect="{show3d}" removedEffect="{hide3d}" updateComplete="centerfix()" alpha="0">
-	<mx:Fade id="fadein" duration="750" alphaFrom="0.72" alphaTo="1"/>
-	<mx:Fade id="fadeout" duration="250" alphaFrom="1" alphaTo="0.72"/>
-	<mx:Parallel id="show3d">
-		<mx:AnimateProperty duration="750" property="z" fromValue="-75" toValue="0"/>
-		<mx:AnimateProperty duration="750" property="rotationX" fromValue="-15" toValue="0"/>
-		<mx:Fade duration="750" alphaFrom="0" alphaTo="1"/>
-	</mx:Parallel>
-	<mx:Parallel id="hide3d">
-		<mx:AnimateProperty duration="250" property="z" fromValue="0" toValue="75"/>
-		<mx:AnimateProperty duration="250" property="rotationX" fromValue="0" toValue="15"/>
-		<mx:Fade duration="250" alphaFrom="1" alphaTo="0"/>
-	</mx:Parallel>
-	<mx:VBox horizontalAlign="right">
-		<mx:HBox>
-			<mx:Label text="Nickname:"/>
-			<mx:TextInput id="nick" alpha="0.72" focusInEffect="fadein" focusOutEffect="fadeout" change="btnvalidate()" enter="nenter()"/>
-		</mx:HBox>
-	</mx:VBox>
-	<mx:Button id="btn" label="OK" click="connect()" enabled="false"/>
-	<mx:Script>
-		<![CDATA[
-			import mx.managers.PopUpManager;
-			import flash.net.SharedObject;
-			import irc.LoginPanel;
-			import flash.geom.Point;
+    <mx:Fade id="fadein" duration="750" alphaFrom="0.72" alphaTo="1"/>
+    <mx:Fade id="fadeout" duration="250" alphaFrom="1" alphaTo="0.72"/>
+    <mx:Parallel id="show3d">
+        <mx:AnimateProperty duration="750" property="z" fromValue="-75" toValue="0"/>
+        <mx:AnimateProperty duration="750" property="rotationX" fromValue="-15" toValue="0"/>
+        <mx:Fade duration="750" alphaFrom="0" alphaTo="1"/>
+    </mx:Parallel>
+    <mx:Parallel id="hide3d">
+        <mx:AnimateProperty duration="250" property="z" fromValue="0" toValue="75"/>
+        <mx:AnimateProperty duration="250" property="rotationX" fromValue="0" toValue="15"/>
+        <mx:Fade duration="250" alphaFrom="1" alphaTo="0"/>
+    </mx:Parallel>
+    <mx:VBox horizontalAlign="right">
+        <mx:HBox>
+            <mx:Label text="Nickname:"/>
+            <mx:TextInput id="nick" alpha="0.72" focusInEffect="fadein" focusOutEffect="fadeout" change="btnvalidate()" enter="nenter()"/>
+        </mx:HBox>
+    </mx:VBox>
+    <mx:Button id="btn" label="OK" click="connect()" enabled="false"/>
+    <mx:Script>
+        <![CDATA[
+            import mx.managers.PopUpManager;
+            import flash.net.SharedObject;
+            import irc.LoginPanel;
+            import flash.geom.Point;
 
-			internal var handler:Function;
+            internal var handler:Function;
 
-			internal function centerfix():void {
-				transform.perspectiveProjection.projectionCenter = new Point(x+unscaledWidth/2,y+unscaledHeight/2);
-			}
+            internal function centerfix():void {
+                transform.perspectiveProjection.projectionCenter = new Point(x+unscaledWidth/2,y+unscaledHeight/2);
+            }
 
-			internal function btnvalidate():void {
-				if (nick.text != '') {
-					btn.enabled = true;
-				} else {
-					btn.enabled = false;
-				}
-			}
+            internal function btnvalidate():void {
+                if (nick.text != '') {
+                    btn.enabled = true;
+                } else {
+                    btn.enabled = false;
+                }
+            }
 
-			internal function nenter():void {
-				if (btn.enabled) {
-					connect();
-				}
-			}
+            internal function nenter():void {
+                if (btn.enabled) {
+                    connect();
+                }
+            }
 
-			internal function connect():void {
-				LoginPanel.userdata.data.nickname = nick.text;
-				LoginPanel.userdata.flush();
-				PopUpManager.removePopUp(this);
-				handler();
-			}
+            internal function connect():void {
+                LoginPanel.userdata.data.nickname = nick.text;
+                LoginPanel.userdata.flush();
+                PopUpManager.removePopUp(this);
+                handler();
+            }
 
-			public static function show(t:String,o:DisplayObject,f:Function):void {
-				var q:NickPanel = new NickPanel();
-				PopUpManager.addPopUp(q,o,true);
-				q.title = t;
-				q.handler = f;
-				q.nick.text = LoginPanel.userdata.data.nickname;
-				q.btnvalidate();
-				PopUpManager.centerPopUp(q);
-				q.nick.setFocus();
-			}
-		]]>
-	</mx:Script>
+            public static function show(t:String,o:DisplayObject,f:Function):void {
+                var q:NickPanel = new NickPanel();
+                PopUpManager.addPopUp(q,o,true);
+                q.title = t;
+                q.handler = f;
+                q.nick.text = LoginPanel.userdata.data.nickname;
+                q.btnvalidate();
+                PopUpManager.centerPopUp(q);
+                q.nick.setFocus();
+            }
+        ]]>
+    </mx:Script>
 </mx:Panel>
 

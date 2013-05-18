@@ -1,11 +1,8 @@
-package irc
-{
+package irc {
     import mx.controls.dataGridClasses.DataGridItemRenderer;
 
-    public class MultilineHTMLRenderer extends DataGridItemRenderer
-    {
-        public function MultilineHTMLRenderer()
-        {
+    public class MultilineHTMLRenderer extends DataGridItemRenderer {
+        public function MultilineHTMLRenderer() {
             super();
         }
 
@@ -13,11 +10,9 @@ package irc
             this.setFocus();
         }
 
-        override public function validateProperties():void
-        {
+        override public function validateProperties():void {
             super.validateProperties();
-            if (listData)
-            {
+            if (listData) {
                 htmlText = listData.label;
             }
         }

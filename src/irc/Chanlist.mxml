@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:DataGrid xmlns:mx="http://www.adobe.com/2006/mxml" editable="false" draggableColumns="false" resizableColumns="false" sortableColumns="true" doubleClickEnabled="true" tabEnabled="false" mouseFocusEnabled="false" updateComplete="imgupdate()" itemRenderer="irc.MultilineHTMLRenderer">
-	<mx:columns>
-		<mx:DataGridColumn width="150" dataField="channel" headerText="channel"/>
-		<mx:DataGridColumn width="72" dataField="users" headerText="users"/>
-		<mx:DataGridColumn width="72" dataField="modes" headerText="modes"/>
-		<mx:DataGridColumn dataField="topic" headerText="topic"/>
-	</mx:columns>
-	<mx:Script>
-		<![CDATA[
-	        import mx.core.BitmapAsset;
-	        import mx.core.FlexSprite;
+    <mx:columns>
+        <mx:DataGridColumn width="150" dataField="channel" headerText="channel"/>
+        <mx:DataGridColumn width="72" dataField="users" headerText="users"/>
+        <mx:DataGridColumn width="72" dataField="modes" headerText="modes"/>
+        <mx:DataGridColumn dataField="topic" headerText="topic"/>
+    </mx:columns>
+    <mx:Script>
+        <![CDATA[
+            import mx.core.BitmapAsset;
+            import mx.core.FlexSprite;
 
-			[Embed(source='jedi.png')]
-			internal var jedi:Class;
-			internal var jediba:BitmapAsset;
-			internal var jediimg:FlexSprite;
+            [Embed(source='jedi.png')]
+            internal var jedi:Class;
+            internal var jediba:BitmapAsset;
+            internal var jediimg:FlexSprite;
 
-			public function imgupdate():void {
-				if (jediba == null) {
-					jediba = new jedi();
-					jediimg = new FlexSprite();
-					jediimg.addChild(jediba);
-					addChildAt(jediimg,numChildren);
-				}
-				jediimg.x = (width-jediimg.width)/2;
-				jediimg.y = (height-jediimg.height)/2;
-			}
-		]]>
-	</mx:Script>
+            public function imgupdate():void {
+                if (jediba == null) {
+                    jediba = new jedi();
+                    jediimg = new FlexSprite();
+                    jediimg.addChild(jediba);
+                    addChildAt(jediimg,numChildren);
+                }
+                jediimg.x = (width-jediimg.width)/2;
+                jediimg.y = (height-jediimg.height)/2;
+            }
+        ]]>
+    </mx:Script>
 </mx:DataGrid>

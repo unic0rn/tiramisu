@@ -73,7 +73,7 @@
                 <irc:ChatArea id="ca" width="100%" height="100%"/>
                 <mx:TextInput id="cmdline" width="100%" alpha="0.72" focusInEffect="{fadein}" focusOutEffect="{fadeout}" enter="newline()"/>
             </mx:VBox>
-			<irc:Chanlist id="cl" width="100%" height="100%" visible="false" includeInLayout="false" maintainProjectionCenter="true"/>
+            <irc:Chanlist id="cl" width="100%" height="100%" visible="false" includeInLayout="false" maintainProjectionCenter="true"/>
             <mx:VBox id="sidebar" height="100%" visible="false" includeInLayout="false" maintainProjectionCenter="true" updateComplete="centerfix(sidebar)" alpha="0">
                 <mx:TextInput id="ulcount" width="154" alpha="0.72" tabEnabled="false" tabFocusEnabled="false" editable="false" textAlign="center"/>
                 <irc:Userlist id="ul" width="154" height="100%" tabEnabled="false" tabFocusEnabled="false" itemDoubleClick="userdclick()"/>

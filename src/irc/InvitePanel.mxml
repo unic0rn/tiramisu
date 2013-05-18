@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" horizontalAlign="center" maintainProjectionCenter="true" addedEffect="{show3d}" removedEffect="{hide3d}" updateComplete="centerfix()" alpha="0">
-	<mx:Parallel id="show3d">
-		<mx:AnimateProperty duration="750" property="z" fromValue="-75" toValue="0"/>
-		<mx:AnimateProperty duration="750" property="rotationX" fromValue="-15" toValue="0"/>
-		<mx:Fade duration="750" alphaFrom="0" alphaTo="1"/>
-	</mx:Parallel>
-	<mx:Parallel id="hide3d">
-		<mx:AnimateProperty duration="250" property="z" fromValue="0" toValue="75"/>
-		<mx:AnimateProperty duration="250" property="rotationX" fromValue="0" toValue="15"/>
-		<mx:Fade duration="250" alphaFrom="1" alphaTo="0"/>
-	</mx:Parallel>
-	<mx:Label id="info"/>
-	<mx:HBox width="100%" horizontalAlign="center">
-		<mx:Button width="{btn2.width}" id="btn" label="Join" click="joinchan()"/>
-		<mx:Button id="btn2" label="Cancel" click="nojoin()"/>
-	</mx:HBox>
-	<mx:Script>
-		<![CDATA[
-			import mx.managers.PopUpManager;
-			import flash.geom.Point;
+    <mx:Parallel id="show3d">
+        <mx:AnimateProperty duration="750" property="z" fromValue="-75" toValue="0"/>
+        <mx:AnimateProperty duration="750" property="rotationX" fromValue="-15" toValue="0"/>
+        <mx:Fade duration="750" alphaFrom="0" alphaTo="1"/>
+    </mx:Parallel>
+    <mx:Parallel id="hide3d">
+        <mx:AnimateProperty duration="250" property="z" fromValue="0" toValue="75"/>
+        <mx:AnimateProperty duration="250" property="rotationX" fromValue="0" toValue="15"/>
+        <mx:Fade duration="250" alphaFrom="1" alphaTo="0"/>
+    </mx:Parallel>
+    <mx:Label id="info"/>
+    <mx:HBox width="100%" horizontalAlign="center">
+        <mx:Button width="{btn2.width}" id="btn" label="Join" click="joinchan()"/>
+        <mx:Button id="btn2" label="Cancel" click="nojoin()"/>
+    </mx:HBox>
+    <mx:Script>
+        <![CDATA[
+            import mx.managers.PopUpManager;
+            import flash.geom.Point;
 
-			internal var handler:Function;
-			internal var chan:String;
+            internal var handler:Function;
+            internal var chan:String;
 
-			internal function centerfix():void {
-				transform.perspectiveProjection.projectionCenter = new Point(x+unscaledWidth/2,y+unscaledHeight/2);
-			}
+            internal function centerfix():void {
+                transform.perspectiveProjection.projectionCenter = new Point(x+unscaledWidth/2,y+unscaledHeight/2);
+            }
 
-			internal function joinchan():void {
-				PopUpManager.removePopUp(this);
-				handler(chan);
-			}
+            internal function joinchan():void {
+                PopUpManager.removePopUp(this);
+                handler(chan);
+            }
 
-			internal function nojoin():void {
-				PopUpManager.removePopUp(this);
-			}
+            internal function nojoin():void {
+                PopUpManager.removePopUp(this);
+            }
 
-			public static function show(n:String,c:String,o:DisplayObject,f:Function):void {
-				var q:InvitePanel = new InvitePanel();
-				PopUpManager.addPopUp(q,o,true);
-				q.title = 'Invite notice';
-				q.info.text = 'You have been invited to '+c+' by '+n;
-				q.chan = c;
-				q.handler = f;
-				PopUpManager.centerPopUp(q);
-			}
-		]]>
-	</mx:Script>
+            public static function show(n:String,c:String,o:DisplayObject,f:Function):void {
+                var q:InvitePanel = new InvitePanel();
+                PopUpManager.addPopUp(q,o,true);
+                q.title = 'Invite notice';
+                q.info.text = 'You have been invited to '+c+' by '+n;
+                q.chan = c;
+                q.handler = f;
+                PopUpManager.centerPopUp(q);
+            }
+        ]]>
+    </mx:Script>
 </mx:Panel>
 
