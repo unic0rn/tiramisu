@@ -85,9 +85,9 @@ internal function btnbarvalidate():void {
     if (btns == null) {
         return;
     }
-	if (active == 'chanlist') {
-		return;
-	}
+    if (active == 'chanlist') {
+        return;
+    }
     btnbar.height = cmdline.y+cmdline.height-topic.y-1;
     var tmpw:Number = 0;
     for each(var tmpb:SideButton in btns) {
@@ -177,10 +177,10 @@ internal function cfgloaded(e:Event):void {
         addstab('unhandled');
     }
     addstab('status');
-	addstab('chanlist');
-	btns[uniqueidx-1].updatebtninit(chanlistupdate);
-	cl.addEventListener('doubleClick',chanlistclick);
-	setTimeout(clupdater,500);
+    addstab('chanlist');
+    btns[uniqueidx-1].updatebtninit(chanlistupdate);
+    cl.addEventListener('doubleClick',chanlistclick);
+    setTimeout(clupdater,500);
     tabswitch('status');
     addEventListener('keyDown',keylistener);
     addEventListener('mouseMove',mouselistener);
@@ -191,18 +191,18 @@ internal function cfgloaded(e:Event):void {
 }
 
 internal function clupdater():void {
-	if (clupdate) {
-		cl.dataProvider = chanlist;
-		cl.columns[1].sortDescending = true;
-		cl.dispatchEvent(new DataGridEvent(DataGridEvent.HEADER_RELEASE,false,false,1));
-	}
-	setTimeout(clupdater,500);
+    if (clupdate) {
+        cl.dataProvider = chanlist;
+        cl.columns[1].sortDescending = true;
+        cl.dispatchEvent(new DataGridEvent(DataGridEvent.HEADER_RELEASE,false,false,1));
+    }
+    setTimeout(clupdater,500);
 }
 
 internal function chanlistclick(e:Event):void {
-	if (cl.selectedItem != null) {
-		swrite('JOIN '+cl.selectedItem.channel);
-	}
+    if (cl.selectedItem != null) {
+        swrite('JOIN '+cl.selectedItem.channel);
+    }
 }
 
 internal function mouselistener(e:MouseEvent):void {
@@ -985,29 +985,29 @@ internal function sdata(e:ProgressEvent):void {
                 case 'ERROR':
                     scmsg = trailing;
                     break;
-				case '321':
-					chanlist = new Array();
-					clupdate = true;
-					break;
-				case '322':
-					var tmpchan:Object = new Object();
-					tmpchan.channel = params[0];
-					tmpchan.users = int(params[1]);
-					if (trailing.indexOf('[+') == 0) {
-						tmpchan.modes = trailing.slice(1,trailing.indexOf(']'));
-						tmpchan.topic = cc(trailing.slice(trailing.indexOf(']')+1));
-					} else {
-						tmpchan.modes = '';
-						tmpchan.topic = cc(trailing);
-					}
-					chanlist.push(tmpchan);
-					break;
-				case '323':
-					clupdate = false;
-					cl.dataProvider = chanlist;
-					cl.columns[1].sortDescending = true;
-					cl.dispatchEvent(new DataGridEvent(DataGridEvent.HEADER_RELEASE,false,false,1));
-					break;
+                case '321':
+                    chanlist = new Array();
+                    clupdate = true;
+                    break;
+                case '322':
+                    var tmpchan:Object = new Object();
+                    tmpchan.channel = params[0];
+                    tmpchan.users = int(params[1]);
+                    if (trailing.indexOf('[+') == 0) {
+                        tmpchan.modes = trailing.slice(1,trailing.indexOf(']'));
+                        tmpchan.topic = cc(trailing.slice(trailing.indexOf(']')+1));
+                    } else {
+                        tmpchan.modes = '';
+                        tmpchan.topic = cc(trailing);
+                    }
+                    chanlist.push(tmpchan);
+                    break;
+                case '323':
+                    clupdate = false;
+                    cl.dataProvider = chanlist;
+                    cl.columns[1].sortDescending = true;
+                    cl.dispatchEvent(new DataGridEvent(DataGridEvent.HEADER_RELEASE,false,false,1));
+                    break;
                 case 'KILL':
                 case '436':
                     achans = new Array();
@@ -1788,7 +1788,7 @@ internal function closetab2(closesrc:String):void {
 }
 
 internal function chanlistupdate(updatesrc:String,b:SideButton):void {
-	swrite('LIST');
+    swrite('LIST');
 }
 
 internal function closetab(closesrc:String,cb:SideButton):void {
@@ -2099,8 +2099,8 @@ internal function refresh():void {
         }
     } else if ((active == 'debug') || (active == 'unhandled') || (active == 'status')) {
         currentState = '';
-	} else if (active == 'chanlist') {
-		currentState = 'list';
+    } else if (active == 'chanlist') {
+        currentState = 'list';
     } else {
         currentState = 'query';
     }
