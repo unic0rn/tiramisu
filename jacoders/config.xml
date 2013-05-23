@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+    <core debug="false"/>
+    <ui skin="wrath"/>
+    <server address="aurora.irc.arloria.net" port="8080" ssl="true" realname="false" encoding="utf-8" services="false" gateway="false" policyport="8001"/>
+    <channels autojoin="#jacoders"/>
+</config>
