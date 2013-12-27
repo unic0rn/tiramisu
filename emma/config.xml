@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+    <core debug="false"/>
+    <ui skin="wrath"/>
+    <server address="irc.mixxnet.net" port="6697" ssl="true" realname="false" encoding="utf-8" services="false" gateway="false" policyport="6843"/>
+    <channels autojoin="#help"/>
+</config>
