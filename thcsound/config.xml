@@ -3,5 +3,5 @@
     <core debug="false"/>
     <ui skin="wrath"/>
     <server address="209.112.245.150" port="6697" ssl="true" realname="false" encoding="utf-8" services="false" gateway="false" policyport="6843"/>
-    <channels autojoin="#help"/>
+    <channels autojoin="#thc"/>
 </config>
