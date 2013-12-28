@@ -6,6 +6,7 @@ import irc.InvitePanel;
 import irc.ChatArea;
 import irc.SideButton;
 import irc.Userlist;
+import irc.Soundfx;
 import flash.net.URLLoader;
 import flash.net.URLRequest;
 import flash.net.Socket;
@@ -23,7 +24,7 @@ import mx.core.UIComponent;
 import flash.geom.Point;
 import mx.events.ItemClickEvent;
 
-internal var version:String = '[Jedi Edition]';
+internal var version:String = '[House Edition]';
 internal var config:XML;
 internal var commands:XML;
 internal var cfgloader:URLLoader;
@@ -69,6 +70,14 @@ internal var reconnwait:Boolean = false;
 internal var nicklen:int = 9;
 internal var lastadd:int = 0;
 internal var stylemanager:IStyleManager2;
+
+internal function mutetoggle():void {
+    if (!Soundfx.mute) {
+        Soundfx.mute = true;
+    } else {
+        Soundfx.mute = false;
+    }
+}
 
 internal function menuclick(e:ItemClickEvent):void {
 }
@@ -805,6 +814,11 @@ internal function sdata(e:ProgressEvent):void {
                                 }
                             }
                             tstamps[tabs(target)][snick.toLowerCase()] = getTimer();
+
+                            if ((target.toLowerCase() == mynick.toLowerCase()) || gs) {
+                                Soundfx.play();
+                            }
+
                             if (target.toLowerCase() != active) {
                                 if (glows[tabs(target)] != null) {
                                     if (glows[tabs(target)].duration == 2000) {
@@ -2073,7 +2087,7 @@ internal function refresh():void {
     windows[tabs(active)] = bls.join('\n');
     ca.htmlText = windows[tabs(active)];
     if (focusManager.getFocus() != topic) {
-        topic.htmlText = topics[tabs(active)];
+        topic.htmlText = urlcheck(topics[tabs(active)]);
         topic.editable = false;
         for (var i:int = 0; i < cpf.length; i++) {
             if (active.indexOf(cpf.charAt(i)) == 0) {
@@ -2240,6 +2254,9 @@ internal function btnchange(e:Event):void {
     if (glows[tabs(active)] != null) {
         glows[tabs(active)].end();
         glows[tabs(active)] = null;
+    }
+    if (active == 'chanlist') {
+        swrite('LIST');
     }
     titleupdate();
     inchange = false;

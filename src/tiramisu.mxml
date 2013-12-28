@@ -69,7 +69,10 @@
                 <mx:VBox id="qbar" clipContent="false" moveEffect="{moveblur}"/>
             </mx:VBox>
             <mx:VBox id="chat" width="100%" height="100%">
-                <mx:TextInput id="topic" width="100%" alpha="0.72" focusInEffect="{fadein}" focusOutEffect="{fadeout}" enter="newtopic()" tabEnabled="false" tabFocusEnabled="false"/>
+                <mx:HBox width="100%">
+                    <mx:TextInput id="topic" width="100%" alpha="0.72" focusInEffect="{fadein}" focusOutEffect="{fadeout}" enter="newtopic()" tabEnabled="false" tabFocusEnabled="false"/>
+                    <mx:Button tabEnabled="false" tabFocusEnabled="false" label="MUTE" toggle="true" buttonDown="mutetoggle()"/>
+                </mx:HBox>
                 <irc:ChatArea id="ca" width="100%" height="100%"/>
                 <mx:TextInput id="cmdline" width="100%" alpha="0.72" focusInEffect="{fadein}" focusOutEffect="{fadeout}" enter="newline()"/>
             </mx:VBox>
