@@ -2,6 +2,6 @@
 <config>
     <core debug="false"/>
     <ui skin="wrath"/>
-    <server address="208.100.28.151" port="6667" ssl="false" realname="false" encoding="utf-8" services="false" gateway="false" policyport="6843"/>
+    <server address="208.100.28.151" port="6697" ssl="true" realname="false" encoding="utf-8" services="false" gateway="false" policyport="6843"/>
     <channels autojoin="#help"/>
 </config>
