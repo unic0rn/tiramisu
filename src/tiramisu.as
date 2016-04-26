@@ -24,7 +24,7 @@ import mx.core.UIComponent;
 import flash.geom.Point;
 import mx.events.ItemClickEvent;
 
-internal var version:String = '[House Edition]';
+internal var version:String = '[Steins;Gate Edition]';
 internal var config:XML;
 internal var commands:XML;
 internal var cfgloader:URLLoader;
@@ -790,9 +790,11 @@ internal function sdata(e:ProgressEvent):void {
                                 target = snick;
                                 if (tabs(target) == null) {
                                     addqtab(target);
+                                    gs = true;
+                                } else if (target != active) {
+                                    gs = true;
                                 }
                                 topics[tabs(target)] = cc(sender);
-                                gs = true;
                             } else {
                                 if (tabs(target) == null) {
                                     addctab(target);
@@ -1445,10 +1447,10 @@ internal function sdata(e:ProgressEvent):void {
                     if (active != 'status') {
                         windows[tabs('status')] += '\n'+tsmp+fb('notice')+'*** You\'ve been forwarded from '+fe+params[0]+fb('notice')+' to '+fe+params[1];
                     }
-                    break;              
+                    break;
                 case '328':
                     windows[tabs(params[0])] += '\n'+tsmp+fb('info')+'*** Homepage: '+urlcheck(cc(trailing))+fe;
-                    break;              
+                    break;
                 case '275':
                 case '307':
                 case '310':
