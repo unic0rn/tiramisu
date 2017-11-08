@@ -9,7 +9,7 @@ The development of this IRC client started few years ago, when flash player 9 be
 
 #### Compiling ####
 
-The code is ugly, I know that. It was written across few years, changes were made upon changes, fixes upon fixes and workarounds upon workarounds, so it's a miracle it still works ;) The last version of flex sdk it was tested with is [flex 4.1] (<http://sourceforge.net/adobe/flexsdk/wiki/Download%20Flex%204/>) - so use that to compile it or things are guaranteed not to work as supposed.
+The code is ugly, I know that. It was written across few years, changes were made upon changes, fixes upon fixes and workarounds upon workarounds, so it's a miracle it still works ;) The last version of flex sdk it was tested with is [flex 4.1](<http://sourceforge.net/adobe/flexsdk/wiki/Download%20Flex%204/>) - so use that to compile it or things are guaranteed not to work as supposed.
 
 #### Roadmap ####
 
@@ -17,4 +17,4 @@ Shortly? There is none. I have no time currently to work on this project, mainly
 
 #### IRC ####
 
-Just click [here] (<http://unic0rn.github.io/tiramisu/>).
+Just click [here](<http://unic0rn.github.io/tiramisu/>).
