@@ -1,5 +1,3 @@
-# _[moved to upvar.fun/tiramisu](https://upvar.fun/tiramisu)_ #
-
 tiramisu irc client
 ===================
 
